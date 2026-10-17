@@ -1,0 +1,37 @@
+// نمونه‌های بیشتر (قیمت و موجودی نمونه است)
+[['tv-c','تلویزیون ۴۳ اینچ نمونه','نمونه TV-43','tv',118000000,14,'مناسب اتاق خواب و آشپزخانه',{'اندازه':'۴۳ اینچ'}],
+['tv-d','تلویزیون لیزری نمونه','نمونه TV-L100','tv',690000000,1,'نمایش سینمایی ۱۰۰ اینچ',{'اندازه':'۱۰۰ اینچ'}],
+['fr-c','یخچال فرنچ‌دور نمونه','نمونه FR-F500','fr',455000000,3,'چهار درب و فضای منظم',{'ظرفیت':'۵۰۰ لیتر'}],
+['fr-d','فریزر صندوقی نمونه','نمونه FZ-300','fr',134000000,6,'نگهداری طولانی مواد غذایی',{'ظرفیت':'۳۰۰ لیتر'}],
+['wm-c','لباسشویی ۷ کیلویی نمونه','نمونه WM-7','wm',142000000,10,'کم‌مصرف و جمع‌وجور',{'ظرفیت':'۷ کیلوگرم'}],
+['wm-d','لباسشویی و خشک‌کن نمونه','نمونه WD-10','wm',331000000,0,'شست‌وشو و خشک‌کردن در یک دستگاه',{'ظرفیت':'۱۰ کیلوگرم'}],
+['dw-c','ظرف‌شویی رومیزی نمونه','نمونه DW-6','dw',99000000,8,'برای فضای کم',{'ظرفیت':'۶ نفر'}],
+['dw-d','ظرف‌شویی توکار نمونه','نمونه DW-15','dw',248000000,4,'نصب داخل کابینت',{'ظرفیت':'۱۵ نفر'}],
+['ac-c','کولر گازی ۹۰۰۰ نمونه','نمونه AC-9','ac',189000000,9,'مناسب اتاق‌های کوچک',{'ظرفیت':'۹۰۰۰ BTU'}],
+['ac-d','کولر گازی ۳۶۰۰۰ نمونه','نمونه AC-36','ac',452000000,2,'برای سالن و مغازه',{'ظرفیت':'۳۶۰۰۰ BTU'}],
+['ot-c','هود آشپزخانه نمونه','نمونه HD-60','ot',63000000,7,'مکش قوی و کم‌صدا',{'عرض':'۶۰ سانتی‌متر'}],
+['ot-d','اجاق گاز نمونه','نمونه GS-5','ot',76000000,5,'پنج شعله شیشه‌ای',{'شعله':'۵'}]
+].forEach(a=>P.push({id:a[0],name:a[1],model:a[2],cat:a[3],price:a[4],stock:a[5],short:a[6],specs:a[7],img:a[0],order:P.length}));
+const ov=ls.g('pov',{});P.forEach(p=>{if(ov[p.id])Object.assign(p,ov[p.id])});
+const SL=[['خانه‌ای که رنگ دارد','از تلویزیون تا کولر گازی، همه‌چیز در یک فروشگاه.','tv','#0a8f8f,#2a5bd7','Markazi Text'],['آشپزخانه‌ای مرتب‌تر','یخچال و ظرف‌شویی متناسب با خانواده شما.','fr','#2a5bd7,#7a3fd1','Markazi Text'],['لباس‌هایتان را بسپارید','لباسشویی‌هایی با ظرفیت‌های مختلف.','wm','#e0457b,#f08a00','Markazi Text']];
+const grp=(l)=>`<div class="grid">${l.map(card).join('')}</div>`;
+window.tab=(i)=>{const L=[P.slice(0,8),[...P].reverse().slice(0,8),P.filter((_,k)=>k%3===0).slice(0,8)];document.querySelectorAll('.tabs button').forEach((b,k)=>b.classList.toggle('on',k===i));$('#tb').innerHTML=grp(L[i])};
+let si=0,tm;window.slide=n=>{const s=document.querySelectorAll('.slide');if(!s.length)return clearInterval(tm);si=(n+s.length)%s.length;s.forEach((e,k)=>e.classList.toggle('on',k===si))};
+window.home=function(){app.innerHTML=`<section class="sl" aria-label="اسلایدر">${SL.map((s,k)=>`<div class="slide ${k?'':'on'}" style="background:linear-gradient(120deg,${s[3]});font-family:'${s[4]}',Markazi Text"><div><h1>${s[0]}</h1><p style="font:18px Markazi Text">${s[1]}</p><a class="btn" style="background:#fff;color:#14123a" href="#/products?cat=${s[2]}">دیدن محصولات</a></div><div class="blob">${art(s[2])}</div></div>`).join('')}<div class="sc"><button onclick="slide(si-1)" aria-label="قبلی">›</button><button onclick="slide(si+1)" aria-label="بعدی">‹</button></div></section>
+<div class="w"><h2>دسته‌بندی‌ها</h2><div class="cats">${CATS.map(c=>`<a class="cat" href="#/products?cat=${c.id}" style="background:linear-gradient(145deg,${c.c},${c.c2});font-family:'${c.f}',Markazi Text"><b>${c.n}</b><span style="font-family:Markazi Text">${c.d}</span></a>`).join('')}</div>
+<h2>محصولات (نمونه)</h2><div class="tabs"><button class="on" onclick="tab(0)">پیشنهادی</button><button onclick="tab(1)">جدیدترین</button><button onclick="tab(2)">منتخب</button><a class="btn" href="#/products">همه محصولات</a></div><div id="tb">${grp(P.slice(0,8))}</div>
+<h2>راهنمای انتخاب</h2><div class="bn"><a href="#/products?cat=tv" style="background:linear-gradient(135deg,#0a8f8f,#7ff0d8)">اندازه تلویزیون را با فاصله تماشا انتخاب کنید</a><a href="#/products?cat=ac" style="background:linear-gradient(135deg,#7a3fd1,#e0457b)">ظرفیت کولر را با متراژ اتاق هماهنگ کنید</a></div>
+<h2>مراحل خرید</h2><div class="st">${[['محصول را انتخاب کنید','#0a8f8f'],['به سبد اضافه کنید','#2a5bd7'],['اطلاعات تحویل را وارد کنید','#e0457b'],['کد پیگیری را نگه دارید','#f08a00']].map(s=>`<div style="border-color:${s[1]}"><b>${s[0]}</b></div>`).join('')}</div>
+<h2>ویژگی‌های فروشگاه</h2><div class="ben"><div style="background:#0a8f8f"><b>خرید بدون ثبت‌نام</b><br>فقط نشانی و تلفن</div><div style="background:#e0457b"><b>پیگیری با کد</b><br>کد اختصاصی سفارش</div><div style="background:#f08a00"><b>مشخصات شفاف</b><br>مدل و ویژگی‌ها</div><div style="background:#7a3fd1"><b>فیلتر دقیق</b><br>قیمت، دسته، موجودی</div></div>
+<h2>پرسش‌های متداول</h2>${[['پرداخت آنلاین فعال است؟','خیر. سفارش ثبت می‌شود و پرداخت جداگانه انجام می‌شود.'],['قیمت‌ها واقعی‌اند؟','نه، همه نمونه‌اند.'],['سفارش را چگونه پیگیری کنم؟','با کد پیگیری و شماره تلفن در صفحه پیگیری.'],['ارسال چگونه است؟','پست پیشتاز یا تحویل حضوری؛ هزینه در فرم سفارش دیده می‌شود.'],['می‌توانم سفارش را لغو کنم؟','با پشتیبانی تماس بگیرید.'],['ضمانت محصولات چطور است؟','قبل از راه‌اندازی واقعی، شرایط رسمی را وارد کنید.']].map(f=>`<details><summary>${f[0]}</summary>${f[1]}</details>`).join('')}</div>`;clearInterval(tm);tm=setInterval(()=>slide(si+1),6500)};
+// پنل مدیریت (فقط روی همین مرورگر؛ برای استفاده واقعی امن نیست)
+const sha=async s=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s)))].map(b=>b.toString(16).padStart(2,'0')).join('');
+const ST=['در انتظار تأیید','در حال آماده‌سازی','آماده ارسال','ارسال‌شده','تحویل‌شده','لغوشده'];
+window.xroute=(path)=>{if(path!=='/admin')return false;const h=ls.g('ah',null);
+if(!sessionStorage.adm){app.innerHTML=`<div class="w"><h2>ورود مدیر</h2><form class="frm" id="lf"><input type="password" id="pw" placeholder="${h?'رمز عبور':'رمز جدید بسازید (حداقل ۶ نویسه)'}"><div class="err" id="le"></div><button>${h?'ورود':'ساخت رمز'}</button></form></div>`;
+$('#lf').onsubmit=async e=>{e.preventDefault();const v=$('#pw').value;if(v.length<6)return $('#le').textContent='رمز کوتاه است.';const x=await sha(v);if(!h){ls.s('ah',x)}else if(x!==h)return $('#le').textContent='رمز اشتباه است.';sessionStorage.adm=1;route()};return true}
+const O=ls.g('orders',[]);app.innerHTML=`<div class="w adm"><h2>پنل مدیریت</h2><button onclick="delete sessionStorage.adm;route()">خروج</button><h3>سفارش‌ها</h3><input id="oq" placeholder="جست‌وجو با کد یا تلفن"><div class="scr"><table id="ot"></table></div><h3>محصولات (قیمت به تومان)</h3><div class="scr"><table>${P.map(p=>`<tr><td>${esc(p.name)}</td><td><input type="number" min="0" id="pr-${p.id}" value="${p.price/10}"></td><td><input type="number" min="0" id="sk-${p.id}" value="${p.stock}"></td><td><button onclick="sv('${p.id}')">ذخیره</button></td></tr>`).join('')}</table></div></div>`;
+const draw=()=>{const q=$('#oq').value.trim();$('#ot').innerHTML=O.map((o,i)=>({o,i})).filter(({o})=>!q||o.code.includes(q)||o.f.phone.includes(q)).map(({o,i})=>`<tr><td>${o.code}</td><td>${esc(o.f.name)} ${o.f.phone}</td><td>${toman(o.sum)}</td><td><select onchange="ch(${i},this.value)">${ST.map(s=>`<option ${s===o.status?'selected':''}>${s}</option>`).join('')}</select></td></tr>`).join('')||'<tr><td>سفارشی نیست</td></tr>'};draw();$('#oq').oninput=draw;
+window.ch=(i,s)=>{O[i].status=s;(O[i].hist=O[i].hist||[]).push([new Date().toLocaleString('fa-IR'),s]);ls.s('orders',O);toast('وضعیت ذخیره شد')};
+window.sv=id=>{const p=P.find(x=>x.id===id),pr=+$('#pr-'+id).value,sk=+$('#sk-'+id).value;if(!(pr>=0&&sk>=0&&Number.isInteger(sk)))return toast('مقدار نامعتبر');p.price=pr*10;p.stock=sk;const o=ls.g('pov',{});o[id]={price:p.price,stock:sk};ls.s('pov',o);toast('ذخیره شد')};return true};
+route();
