@@ -1,0 +1,9 @@
+عکس هر محصول را با همین نام و فرمت jpg در این پوشه بگذارید (نسبت پیشنهادی ۴ به ۳):
+tv-a tv-b tv-c tv-d  (تلویزیون)
+fr-a fr-b fr-c fr-d  (یخچال و فریزر)
+wm-a wm-b wm-c wm-d  (لباسشویی)
+dw-a dw-b dw-c dw-d  (ظرف‌شویی)
+ac-a ac-b ac-c ac-d  (کولر گازی)
+ot-a ot-b ot-c ot-d  (سایر)
+مثال: tv-a.jpg
+روش دیگر: آدرس اینترنتی عکس را در assets/images.js بنویسید.
